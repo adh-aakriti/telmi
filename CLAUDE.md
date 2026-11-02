@@ -7,6 +7,7 @@ collects emails for a pilot with secondary schools (ESO/Bachillerato).
 
 ## Stack
 - Single static file: index.html (plain HTML/CSS/JS, no build step)
+- Live: https://telmi-pilot.vercel.app (Vercel project telmi-pilot, auto-deploys from main of github.com/adh-aakriti/telmi)
 - Supabase (EU region) table `waitlist`, schema in supabase_setup.sql
 - Form POSTs to Supabase REST with the public anon key (CONFIG block in the script)
 
