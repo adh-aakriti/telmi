@@ -6,158 +6,203 @@
 <title>Telmi: tell me what I missed</title>
 <meta name="description" content="Pip is a classmate who missed today’s class. Students tell Pip what happened, out loud and from memory. Teachers see which ideas stuck. Join the pilot list for secondary schools.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231D4ED8'/%3E%3Ccircle cx='11' cy='13' r='2.5' fill='%23fff'/%3E%3Ccircle cx='21' cy='13' r='2.5' fill='%23fff'/%3E%3Cpath d='M10 19q6 6 12 0' stroke='%23fff' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
 <style>
+/* Colours, radii and touch sizes match the Telmi app (mobile/src/theme.ts) */
 :root {
-  color-scheme: light dark;
-  --paper: #FDFDFB;
-  --ink: #17181C;
-  --muted: #565A63;
-  --line: #DCDCD5;
-  --hi: #FFE45C;
-  --hi-ink: #17181C;
-  --err: #B42318;
-  --serif: "Literata", Georgia, "Times New Roman", serif;
-  --sans: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #141517;
-    --ink: #ECECEA;
-    --muted: #A8ACB4;
-    --line: #33353A;
-    --hi: #6B5C00;
-    --hi-ink: #FFFFFF;
-    --err: #FF9E94;
-  }
+  color-scheme: light;
+  --bg: #FFFFFF;
+  --surface: #F3F4F6;
+  --text: #111827;
+  --muted: #4B5563;
+  --border: #6B7280;
+  --line: #E5E7EB;
+  --primary: #1D4ED8;
+  --primary-soft: #DBEAFE;
+  --sky: #E6F4FE;
+  --on-primary: #FFFFFF;
+  --error: #B91C1C;
+  --success: #047857;
+  --success-soft: #D1FAE5;
+  --warning-soft: #FEF3C7;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1.125rem/1.65 var(--sans); }
-:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 3px; }
-.skip { position: absolute; left: -999px; top: 0; background: var(--ink); color: var(--paper); padding: .6rem 1rem; z-index: 20; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 1.0625rem/1.6 var(--font); }
+:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; border-radius: 4px; }
+.skip { position: absolute; left: -999px; top: 0; background: var(--primary); color: var(--on-primary); padding: .6rem 1rem; z-index: 20; border-radius: 0 0 8px 0; }
 .skip:focus { left: 0; }
-.wrap { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-h1, h2 { font-family: var(--serif); font-weight: 600; margin: 0; letter-spacing: -.02em; }
-p { margin: 0 0 1.1rem; }
-a { color: var(--ink); text-underline-offset: 3px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+h1, h2, h3 { margin: 0; line-height: 1.15; }
+p { margin: 0 0 1rem; }
+a { color: var(--primary); text-underline-offset: 3px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 1.5rem; padding-bottom: 1.5rem; }
-.mark { font-family: var(--serif); font-weight: 600; font-size: 1.1rem; text-decoration: none; }
-.right { display: flex; align-items: center; gap: 1.5rem; }
-.lang { display: flex; gap: .25rem; }
-.lang button { font: 700 .9rem var(--sans); background: transparent; color: var(--muted); border: 0; padding: .4rem .55rem; min-width: 44px; min-height: 44px; cursor: pointer; border-radius: 6px; }
-.lang button[aria-pressed="true"] { color: var(--ink); text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+/* Pip, drawn like the app's mascot: a blue face with white eyes and a smile */
+.pip { --s: 40px; position: relative; display: inline-block; flex: none; width: var(--s); height: var(--s); border-radius: 50%; background: var(--primary); }
+.pip i { position: absolute; top: 34%; width: 14%; height: 14%; border-radius: 50%; background: #fff; }
+.pip i:first-child { left: 28%; }
+.pip i:nth-child(2) { right: 28%; }
+.pip u { position: absolute; left: 34%; top: 56%; width: 32%; height: 16%; border-radius: 0 0 99px 99px; background: #fff; }
 
-.btn { display: inline-block; font: 700 1.05rem var(--sans); background: var(--ink); color: var(--paper); border: 0; border-radius: 6px; padding: .85rem 1.5rem; min-height: 48px; cursor: pointer; text-decoration: none; }
-.btn:hover { opacity: .88; }
+/* Header */
+header.top { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,.92); backdrop-filter: saturate(1.4) blur(8px); border-bottom: 1px solid var(--line); }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 68px; }
+.mark { display: flex; align-items: center; gap: .6rem; font-weight: 800; font-size: 1.3rem; letter-spacing: -.02em; color: var(--text); text-decoration: none; }
+.mark .pip { --s: 32px; }
+.right { display: flex; align-items: center; gap: .75rem; }
+.lang { display: flex; background: var(--surface); border-radius: 8px; padding: 3px; }
+.lang button { font: 600 .9rem var(--font); background: transparent; color: var(--muted); border: 0; min-width: 44px; min-height: 38px; cursor: pointer; border-radius: 6px; }
+.lang button[aria-pressed="true"] { background: var(--bg); color: var(--text); box-shadow: 0 1px 2px rgba(17,24,39,.12); }
+
+/* Buttons, as in the app: primary is filled blue, secondary is outlined */
+.btn { display: inline-flex; align-items: center; justify-content: center; font: 600 1rem var(--font); background: var(--primary); color: var(--on-primary); border: 1px solid var(--primary); border-radius: 8px; padding: 0 1.25rem; min-height: 48px; cursor: pointer; text-decoration: none; }
+.btn:hover { background: #1E40AF; border-color: #1E40AF; }
+.btn.secondary { background: var(--bg); color: var(--primary); }
+.btn.secondary:hover { background: var(--primary-soft); }
+.btn.compact { min-height: 44px; padding: 0 1rem; font-size: .95rem; }
 .btn[disabled] { opacity: .6; cursor: progress; }
 
 /* Hero */
-.hero { padding: 3.5rem 0 6rem; }
-.hero .wrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: 5rem; align-items: center; }
-h1 { font-size: clamp(3rem, 7.2vw, 6rem); line-height: .96; margin-bottom: 1.75rem; letter-spacing: -.035em; }
-.lede { font-size: 1.3rem; line-height: 1.55; max-width: 31rem; margin-bottom: 2rem; }
-.actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
-.small { color: var(--muted); font-size: .975rem; max-width: 30rem; }
+.hero { background: linear-gradient(180deg, var(--sky) 0%, var(--bg) 100%); padding: 4rem 0 5rem; }
+.hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 4rem; align-items: center; }
+.pill { display: inline-block; background: var(--primary-soft); color: var(--primary); font-weight: 600; font-size: .9rem; border-radius: 99px; padding: .35rem .85rem; margin-bottom: 1.25rem; }
+h1 { font-size: clamp(2.6rem, 6vw, 4.5rem); font-weight: 800; letter-spacing: -.035em; line-height: 1.02; margin-bottom: 1.25rem; }
+.lede { font-size: 1.25rem; color: var(--muted); max-width: 32rem; margin-bottom: 2rem; }
+.actions { display: flex; gap: .75rem; flex-wrap: wrap; }
 
-/* The one bold element: the conversation as type */
-.talk { border-left: 3px solid var(--ink); padding-left: 2rem; margin: 0; }
-.say { margin: 0 0 1.75rem; opacity: 0; animation: show .5s ease forwards; }
-.say:nth-child(1) { animation-delay: .4s; }
-.say:nth-child(2) { animation-delay: 1.6s; }
-.say:nth-child(3) { animation-delay: 3.2s; }
-.say:nth-child(4) { animation-delay: 4.6s; margin-bottom: 0; }
-.say b { display: block; font: 700 .9rem var(--sans); color: var(--muted); margin-bottom: .15rem; }
-.say span { font-family: var(--serif); font-size: clamp(1.35rem, 2.3vw, 1.8rem); line-height: 1.3; letter-spacing: -.01em; }
-.say.buddy span { color: var(--muted); }
-mark { background: var(--hi); color: var(--hi-ink); padding: .02em .12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-.cap { color: var(--muted); font-size: .9rem; margin: 2rem 0 0; max-width: 28rem; }
+/* The app's session screen, as an example */
+.device { background: var(--bg); border: 1px solid var(--line); border-radius: 24px; box-shadow: 0 24px 48px -16px rgba(29,78,216,.28), 0 2px 6px rgba(17,24,39,.06); padding: 1.25rem; max-width: 27rem; margin-left: auto; }
+.device-top { display: flex; align-items: center; gap: .75rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); margin-bottom: 1rem; }
+.device-top strong { display: block; font-size: 1.05rem; }
+.device-top span { color: var(--muted); font-size: .875rem; }
+.talk { display: flex; flex-direction: column; gap: .75rem; }
+.say { margin: 0; max-width: 85%; padding: .7rem .95rem; border-radius: 16px; font-size: 1.02rem; line-height: 1.45; opacity: 0; animation: show .45s ease forwards; }
+.say b { display: block; font-size: .8rem; font-weight: 700; margin-bottom: .1rem; }
+.say.buddy { background: var(--surface); border-bottom-left-radius: 4px; align-self: flex-start; }
+.say.buddy b { color: var(--primary); }
+.say.you { background: var(--primary); color: var(--on-primary); border-bottom-right-radius: 4px; align-self: flex-end; }
+.say.you b { color: var(--primary-soft); }
+.say:nth-child(1) { animation-delay: .3s; }
+.say:nth-child(2) { animation-delay: 1.3s; }
+.say:nth-child(3) { animation-delay: 2.6s; }
+.say:nth-child(4) { animation-delay: 3.8s; }
+mark { background: none; color: inherit; font-weight: 700; text-decoration: underline 2px; text-underline-offset: 4px; }
+.mic { display: flex; align-items: center; gap: .75rem; margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+.mic span:first-child { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--primary); flex: none; }
+.mic svg { width: 20px; height: 20px; fill: #fff; }
+.cap { color: var(--muted); font-size: .9rem; margin: 1rem 0 0 auto; max-width: 27rem; }
 @keyframes show { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
 /* Sections */
-section { border-top: 1px solid var(--line); padding: 4.5rem 0; }
-.row { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; }
-.row > * { min-width: 0; }
-h2 { font-size: 1.7rem; line-height: 1.2; }
-.prose { max-width: 38rem; }
-.prose p:last-child { margin-bottom: 0; }
-ul.how { list-style: none; margin: 0 0 2rem; padding: 0; max-width: 38rem; }
-.how li { margin-bottom: 1.25rem; }
-.how strong { font-weight: 700; }
+section { padding: 5rem 0; }
+section.alt { background: var(--surface); }
+.head { max-width: 40rem; margin-bottom: 2.5rem; }
+h2 { font-size: clamp(1.75rem, 3.4vw, 2.4rem); font-weight: 800; letter-spacing: -.025em; }
+.head p { color: var(--muted); font-size: 1.1rem; margin: .75rem 0 0; }
+.small { color: var(--muted); font-size: .95rem; }
+.card { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.grid3 > *, .grid2 > * { min-width: 0; }
 
-table { border-collapse: collapse; width: 100%; max-width: 38rem; font-variant-numeric: tabular-nums; }
-caption { text-align: left; font-family: var(--serif); font-weight: 600; font-size: 1.15rem; padding-bottom: .4rem; }
-th, td { text-align: left; padding: .6rem 0; border-bottom: 1px solid var(--line); font-size: 1rem; }
-thead th { font-weight: 700; color: var(--muted); font-size: .9rem; border-bottom: 2px solid var(--ink); }
-td:last-child, th:last-child { text-align: right; }
-tr.mistake td { font-weight: 700; }
-.tnote { color: var(--muted); font-size: .9rem; margin-top: .75rem; max-width: 38rem; }
+/* The problem */
+.problem .card p { font-size: 1.3rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.3; margin: 0; }
+.problem .card .num { display: block; color: var(--primary); font-size: .9rem; font-weight: 700; margin-bottom: .5rem; }
+.problem .small { margin: 1.25rem 0 0; }
 
-.big { font-family: var(--serif); font-size: clamp(1.5rem, 2.7vw, 2.1rem); line-height: 1.22; letter-spacing: -.02em; margin-bottom: .8rem; }
-.bet { font-family: var(--serif); font-size: 1.3rem; line-height: 1.4; max-width: 36rem; margin: 0 0 3rem; }
-/* Per-student table */
+/* How it works */
+ul.how { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+.how li { counter-increment: s; }
+.how li::before { content: counter(s); display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--primary-soft); color: var(--primary); font-weight: 800; margin-bottom: .9rem; }
+.how strong { display: block; font-size: 1.15rem; margin-bottom: .3rem; }
+.how span { color: var(--muted); }
+.bet { background: var(--primary-soft); color: #1E3A8A; border-radius: 12px; padding: 1.25rem 1.5rem; font-size: 1.15rem; font-weight: 600; margin: 1rem 0 0; }
+
+/* Student results, styled like the app's results screen */
+.results { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1.5rem; align-items: start; }
+.results > * { min-width: 0; }
+.summary { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; }
+ul.ideas { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.ideas li { border-radius: 8px; padding: .65rem .8rem; background: var(--success-soft); }
+.ideas li.todo { background: var(--warning-soft); }
+.ideas b { display: block; font-size: .875rem; color: var(--success); }
+.ideas li.todo b { color: var(--text); }
+.card h3 { font-size: 1.1rem; font-weight: 700; margin: 1.5rem 0 .5rem; }
+.fix { border-left: 4px solid var(--error); padding-left: .8rem; margin: 0 0 .5rem; }
+.fix b { display: block; font-size: .875rem; color: var(--muted); }
+.card p:last-child { margin-bottom: 0; }
+.pipcard { display: flex; gap: 1rem; align-items: center; background: var(--primary-soft); border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
+.pipcard .pip { --s: 64px; }
+.pipcard strong { display: block; font-size: 1.1rem; }
+.pipcard p { margin: .2rem 0 0; font-size: .95rem; }
+.aside p { color: var(--muted); font-size: .95rem; }
+
+/* Teacher table */
 .tscroll { overflow-x: auto; max-width: 100%; position: relative; }
-table.cls { max-width: none; min-width: 34rem; }
-.cls th, .cls td { text-align: center; padding-left: .75rem; padding-right: .75rem; }
-.cls thead th { line-height: 1.3; }
+table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+table.cls { min-width: 34rem; }
+caption { text-align: left; font-weight: 700; font-size: 1.1rem; padding-bottom: .75rem; }
+th, td { padding: .7rem .75rem; border-bottom: 1px solid var(--line); font-size: 1rem; text-align: center; }
+thead th { font-weight: 600; color: var(--muted); font-size: .875rem; line-height: 1.3; vertical-align: bottom; }
 .cls th:first-child, .cls td:first-child { text-align: left; padding-left: 0; }
 .cls th:last-child, .cls td:last-child { text-align: left; }
-.cls tbody th, .cls tfoot th { font-weight: 700; color: var(--ink); font-size: 1rem; }
-.cls thead th { vertical-align: bottom; }
-.cls tfoot td, .cls tfoot th { border-top: 2px solid var(--ink); border-bottom: 0; font-weight: 700; }
+.cls tbody th { font-weight: 600; }
+.cls tfoot th, .cls tfoot td { font-weight: 700; border-bottom: 0; border-top: 2px solid var(--text); }
 .cls td.muted { text-align: left; color: var(--muted); }
-.cls .none-cell { color: var(--muted); }
-.dot { display: inline-block; width: .95rem; height: .95rem; border-radius: 50%; border: 2px solid var(--ink); vertical-align: -2px; }
-.dot.full { background: var(--ink); }
-.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.legend { color: var(--muted); font-size: .9rem; margin-top: .9rem; }
+.dot { display: inline-block; width: 1rem; height: 1rem; border-radius: 50%; border: 2px solid var(--border); vertical-align: -2px; }
+.dot.full { background: var(--primary); border-color: var(--primary); }
+.legend { color: var(--muted); font-size: .9rem; margin: 1rem 0 0; }
 .legend .dot { margin-left: .9rem; }
 .legend .dot:first-child { margin-left: 0; }
+.notes { margin-top: 1rem; }
+.tnote { color: var(--muted); font-size: .9rem; margin: .4rem 0 0; }
+.callout { background: var(--warning-soft); border-radius: 8px; padding: .75rem 1rem; margin-top: 1rem; font-size: .95rem; }
 
-/* Student results card */
-.card { border: 1.5px solid var(--ink); border-radius: 8px; padding: 1.5rem; max-width: 38rem; }
-.card h3 { font: 700 1rem var(--sans); margin: 1.5rem 0 .4rem; }
-.card p { margin-bottom: .5rem; }
-.card .big { margin-bottom: 1rem; }
-ul.ideas { list-style: none; margin: 0; padding: 0; }
-.ideas li { display: flex; gap: .75rem; align-items: baseline; padding: .45rem 0; border-bottom: 1px solid var(--line); }
-.ideas li:last-child { border-bottom: 0; }
-.ideas b { flex: none; width: 8.5rem; font-size: .9rem; }
-.ideas .todo b { color: var(--muted); }
-.fix { display: grid; grid-template-columns: 5.5rem 1fr; gap: .75rem; align-items: baseline; }
-.fix b { font-size: .9rem; color: var(--muted); }
+/* Left out on purpose */
+ul.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .6rem; }
+.chips li { display: flex; align-items: center; gap: .5rem; background: var(--surface); border-radius: 99px; padding: .55rem 1rem; font-weight: 600; }
+.chips li::before { content: ""; width: .8rem; height: 2px; background: var(--error); border-radius: 2px; }
+.out .small { margin: 1.25rem 0 0; }
 
-/* Form */
-.field { margin-bottom: 1.1rem; max-width: 26rem; }
-label { display: block; font-weight: 700; font-size: 1rem; margin-bottom: .3rem; }
-input[type="email"], select { width: 100%; font: inherit; color: var(--ink); background: var(--paper); border: 1.5px solid var(--ink); border-radius: 6px; padding: .65rem .8rem; min-height: 48px; }
-.check { display: flex; gap: .7rem; align-items: flex-start; font-size: 1rem; margin: 1.3rem 0 1.5rem; max-width: 30rem; }
-.check input { width: 1.3rem; height: 1.3rem; margin-top: .2rem; flex: none; accent-color: var(--ink); }
-.check label { font-weight: 400; margin: 0; }
-.status { min-height: 1.7rem; margin-top: 1rem; font-weight: 700; }
-.status.err { color: var(--err); }
+/* Sign-up */
+#join { background: var(--sky); }
+#join .row { display: grid; grid-template-columns: 1fr 1.1fr; gap: 3rem; align-items: start; }
+#join .row > * { min-width: 0; }
+#join .intro p { color: var(--muted); font-size: 1.1rem; margin-top: .75rem; }
+form { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 1.75rem; box-shadow: 0 12px 32px -16px rgba(29,78,216,.25); }
+.field { margin-bottom: 1.1rem; }
+label { display: block; font-weight: 600; font-size: 1rem; margin-bottom: .35rem; }
+input[type="email"], select { width: 100%; font: inherit; font-size: 1rem; color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: .65rem .75rem; min-height: 48px; }
+input[type="email"]:focus, select:focus { border-width: 2px; border-color: var(--primary); padding: calc(.65rem - 1px) calc(.75rem - 1px); outline: none; }
+.check { display: flex; gap: .7rem; align-items: flex-start; font-size: .95rem; margin: 1.25rem 0 1.5rem; }
+.check input { width: 1.25rem; height: 1.25rem; margin-top: .2rem; flex: none; accent-color: var(--primary); }
+.check label { font-weight: 400; margin: 0; color: var(--muted); }
+form .btn { width: 100%; }
+.status { min-height: 1.6rem; margin-top: 1rem; font-weight: 600; }
+.status.ok { color: var(--success); }
+.status.err { color: var(--error); }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
-footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3.5rem; color: var(--muted); font-size: .95rem; }
-footer p { max-width: 44rem; }
+footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3rem; color: var(--muted); font-size: .95rem; }
+footer p { max-width: 46rem; }
 footer a { overflow-wrap: anywhere; }
-footer .foot { margin-top: 1.5rem; margin-bottom: 0; }
+footer a[href^="tel:"] { white-space: nowrap; }
+footer .foot { margin: 1rem 0 0; }
 
 @media (max-width: 900px) {
-  .hero .wrap, .row { grid-template-columns: 1fr; gap: 2.5rem; }
-  .hero { padding-bottom: 4rem; }
+  .hero .wrap, .results, #join .row { grid-template-columns: 1fr; gap: 2.5rem; }
+  .device, .cap { margin-left: 0; }
+  .grid3 { grid-template-columns: 1fr; }
   section { padding: 3.5rem 0; }
-  .talk { padding-left: 1.25rem; }
+  .hero { padding: 2.5rem 0 3.5rem; }
 }
-@media (max-width: 560px) {
-  .right > a { display: none; }
-  .mark { white-space: nowrap; }
-  .card { padding: 1.1rem; }
-  .ideas li, .fix { display: block; }
-  .ideas b, .fix b { display: block; width: auto; }
+@media (max-width: 640px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .right > .btn { display: none; }
+  .wrap { padding: 0 1rem; }
+  .card, form { padding: 1.25rem; }
+  .device { padding: 1rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -170,13 +215,13 @@ footer .foot { margin-top: 1.5rem; margin-bottom: 0; }
 
 <header class="top">
   <div class="wrap">
-    <a class="mark" href="#top">Telmi</a>
+    <a class="mark" href="#top"><span class="pip" aria-hidden="true"><i></i><i></i><u></u></span>Telmi</a>
     <div class="right">
       <div class="lang" role="group" aria-label="Language / Idioma">
         <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
         <button type="button" data-lang="es" aria-pressed="false" lang="es">ES</button>
       </div>
-      <a href="#join" data-i18n="navJoin">Join the pilot</a>
+      <a class="btn compact" href="#join" data-i18n="navJoin">Join the pilot</a>
     </div>
   </div>
 </header>
@@ -185,59 +230,67 @@ footer .foot { margin-top: 1.5rem; margin-bottom: 0; }
   <div class="hero">
     <div class="wrap">
       <div>
+        <p class="pill" data-i18n="heroNote">For ESO and Bachillerato. Pilot from January 2027.</p>
         <h1 data-i18n="h1">Tell me what I missed.</h1>
         <p class="lede" data-i18n="lede">Pip is a classmate who missed today’s class. Students tell Pip what happened, out loud and from memory. Teachers see what stuck.</p>
         <div class="actions">
           <a class="btn" href="#join" data-i18n="ctaPrimary">Join the pilot list</a>
-          <a href="#how" data-i18n="ctaSecondary">How it works</a>
+          <a class="btn secondary" href="#how" data-i18n="ctaSecondary">How it works</a>
         </div>
-        <p class="small" data-i18n="heroNote">For ESO and Bachillerato. Pilot from January 2027.</p>
       </div>
       <div>
-        <div class="talk" role="group" aria-label="Example conversation">
-          <p class="say buddy"><b data-i18n="whoBuddy">Pip</b><span data-i18n="d1">I was absent today. What did we cover in Biology?</span></p>
-          <p class="say"><b data-i18n="whoYou">You</b><span><span data-i18n="y1a">How plants make food. They make </span><mark data-i18n="y1b">sugar from light, water and carbon dioxide.</mark></span></p>
-          <p class="say buddy"><b data-i18n="whoBuddy2">Pip</b><span data-i18n="d3">Wait, I thought plants ate soil. Is that wrong?</span></p>
-          <p class="say"><b data-i18n="whoYou2">You</b><span data-i18n="y2">Yes. Soil gives them water and minerals, not food.</span></p>
+        <div class="device" role="group" aria-label="Example conversation">
+          <div class="device-top">
+            <span class="pip" aria-hidden="true"><i></i><i></i><u></u></span>
+            <div><strong>Pip</strong><span data-i18n="devSub">Biology · 12 min left</span></div>
+          </div>
+          <div class="talk">
+            <p class="say buddy"><b data-i18n="whoBuddy">Pip</b><span data-i18n="d1">I was absent today. What did we cover in Biology?</span></p>
+            <p class="say you"><b data-i18n="whoYou">You</b><span><span data-i18n="y1a">How plants make food. They make </span><mark data-i18n="y1b">sugar from light, water and carbon dioxide.</mark></span></p>
+            <p class="say buddy"><b data-i18n="whoBuddy2">Pip</b><span data-i18n="d3">Wait, I thought plants ate soil. Is that wrong?</span></p>
+            <p class="say you"><b data-i18n="whoYou2">You</b><span data-i18n="y2">Yes. Soil gives them water and minerals, not food.</span></p>
+          </div>
+          <div class="mic" aria-hidden="true">
+            <span><svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-3.1A7 7 0 0 0 19 11h-2z"/></svg></span>
+            <span data-i18n="micHint">Tap the microphone and explain</span>
+          </div>
         </div>
         <p class="cap" data-i18n="dCap">Pip asks. Pip never gives the answer, and sometimes gets a fact wrong on purpose for the student to correct.</p>
       </div>
     </div>
   </div>
 
-  <section aria-labelledby="why-title">
-    <div class="wrap row">
-      <h2 id="why-title" data-i18n="whyTitle">The problem</h2>
-      <div class="prose">
-        <p class="big" data-i18n="why1">Students cram the night before.</p>
-        <p class="big" data-i18n="why2">Parents fear AI does the thinking.</p>
-        <p class="big" data-i18n="why3">Teachers have no time and no guidance.</p>
-        <p class="small" style="margin-top:1.75rem" data-i18n="whySrc">From interviews with parents, students and a head of department in Spain and Nepal. A small sample, and a start.</p>
+  <section class="problem" aria-labelledby="why-title">
+    <div class="wrap">
+      <div class="head"><h2 id="why-title" data-i18n="whyTitle">The problem</h2></div>
+      <div class="grid3">
+        <div class="card"><span class="num" aria-hidden="true">01</span><p data-i18n="why1">Students cram the night before.</p></div>
+        <div class="card"><span class="num" aria-hidden="true">02</span><p data-i18n="why2">Parents fear AI does the thinking.</p></div>
+        <div class="card"><span class="num" aria-hidden="true">03</span><p data-i18n="why3">Teachers have no time and no guidance.</p></div>
       </div>
+      <p class="small" data-i18n="whySrc">From interviews with parents, students and a head of department in Spain and Nepal. A small sample, and a start.</p>
     </div>
   </section>
 
-  <section id="how" aria-labelledby="how-title">
-    <div class="wrap row">
-      <h2 id="how-title" data-i18n="howTitle">The idea</h2>
-      <div>
-        <ul class="how">
-          <li><strong data-i18n="hw1t">The teacher adds the lesson.</strong> <span data-i18n="hw1d">Slides or notes. Nothing new to make.</span></li>
-          <li><strong data-i18n="hw2t">The student recaps it aloud.</strong> <span data-i18n="hw2d">From memory, up to 15 minutes. The conversation stays hidden, so the screen stays quiet.</span></li>
-          <li><strong data-i18n="hw3t">A checker keeps it honest.</strong> <span data-i18n="hw3d">A separate, strict checker compares the recap with the teacher’s material. Pip never says whether you are right.</span></li>
-          <li><strong data-i18n="hw4t">The teacher sees what stuck.</strong> <span data-i18n="hw4d">Per student, per idea.</span></li>
-        </ul>
-        <p class="bet" data-i18n="bet">Our bet: knowing you must recap tonight is a reason to listen today. The pilot will test it.</p>
-      </div>
+  <section id="how" class="alt" aria-labelledby="how-title">
+    <div class="wrap">
+      <div class="head"><h2 id="how-title" data-i18n="howTitle">The idea</h2></div>
+      <ul class="how grid2">
+        <li class="card"><strong data-i18n="hw1t">The teacher adds the lesson.</strong> <span data-i18n="hw1d">Slides or notes. Nothing new to make.</span></li>
+        <li class="card"><strong data-i18n="hw2t">The student recaps it aloud.</strong> <span data-i18n="hw2d">From memory, up to 15 minutes. The conversation stays hidden, so the screen stays quiet.</span></li>
+        <li class="card"><strong data-i18n="hw3t">A checker keeps it honest.</strong> <span data-i18n="hw3d">A separate, strict checker compares the recap with the teacher’s material. Pip never says whether you are right.</span></li>
+        <li class="card"><strong data-i18n="hw4t">The teacher sees what stuck.</strong> <span data-i18n="hw4d">Per student, per idea.</span></li>
+      </ul>
+      <p class="bet" data-i18n="bet">Our bet: knowing you must recap tonight is a reason to listen today. The pilot will test it.</p>
     </div>
   </section>
 
   <section aria-labelledby="stu-title">
-    <div class="wrap row">
-      <h2 id="stu-title" data-i18n="stuTitle">What the student gets back</h2>
-      <div>
+    <div class="wrap">
+      <div class="head"><h2 id="stu-title" data-i18n="stuTitle">What the student gets back</h2></div>
+      <div class="results">
         <div class="card">
-          <p class="big" data-i18n="rsHead">You explained 4 of 6 key ideas.</p>
+          <p class="summary" data-i18n="rsHead">You explained 4 of 6 key ideas.</p>
           <ul class="ideas">
             <li><b data-i18n="done">Explained</b><span data-i18n="ki1">What plants take in</span></li>
             <li><b data-i18n="done">Explained</b><span data-i18n="ki2">Where it happens: the chloroplasts</span></li>
@@ -247,22 +300,28 @@ footer .foot { margin-top: 1.5rem; margin-bottom: 0; }
             <li class="todo"><b data-i18n="stillTo">Still to explain</b><span data-i18n="ki6">Why light matters</span></li>
           </ul>
           <h3 data-i18n="fixTitle">Things to fix</h3>
-          <p class="fix"><b data-i18n="youSaid">You said</b> <span data-i18n="fixSaid">“The plant gets its food from the soil.”</span></p>
-          <p class="fix"><b data-i18n="actually">Actually</b> <span data-i18n="fixAct">Soil gives water and minerals. The plant makes its own sugar.</span></p>
+          <div class="fix"><b data-i18n="youSaid">You said</b><span data-i18n="fixSaid">“The plant gets its food from the soil.”</span></div>
+          <div class="fix"><b data-i18n="actually">Actually</b><span data-i18n="fixAct">Soil gives water and minerals. The plant makes its own sugar.</span></div>
           <h3 data-i18n="qTitle">Exam-style question</h3>
           <p data-i18n="q">A plant is kept in the dark for a week. What happens to it, and why?</p>
           <h3 data-i18n="nextTitle">Next step</h3>
           <p data-i18n="next">Explain where the sugar goes after the plant makes it.</p>
         </div>
-        <p class="tnote" data-i18n="pipGrow">Pip grows with every idea the student explains correctly. Time spent in the app does not count.</p>
+        <div class="aside">
+          <div class="pipcard">
+            <span class="pip" aria-hidden="true"><i></i><i></i><u></u></span>
+            <div><strong data-i18n="pipLvl">Pip · level 3</strong><p data-i18n="pipProg">12 ideas understood. Explain 3 more ideas to help Pip grow.</p></div>
+          </div>
+          <p data-i18n="pipGrow">Pip grows with every idea the student explains correctly. Time spent in the app does not count.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section aria-labelledby="tch-title">
-    <div class="wrap row">
-      <h2 id="tch-title" data-i18n="tHead">What the teacher sees</h2>
-      <div>
+  <section class="alt" aria-labelledby="tch-title">
+    <div class="wrap">
+      <div class="head"><h2 id="tch-title" data-i18n="tHead">What the teacher sees</h2></div>
+      <div class="card">
         <div class="tscroll"><table class="cls">
 <caption data-i18n="tCap">Biology: photosynthesis, one class</caption>
 <thead><tr><th scope="col" data-i18n="thStudent">Student</th><th scope="col" data-i18n="r1">What plants take in</th><th scope="col" data-i18n="r2">What chlorophyll does</th><th scope="col" data-i18n="r3">Where the sugar goes</th><th scope="col" data-i18n="thCount">Key ideas explained</th></tr></thead>
@@ -278,26 +337,32 @@ footer .foot { margin-top: 1.5rem; margin-bottom: 0; }
 <tfoot><tr><th scope="row" data-i18n="clsLabel">Whole class (24)</th><td data-i18n="r1n">21 of 24</td><td data-i18n="r2n">17 of 24</td><td data-i18n="r3n">11 of 24</td><td data-i18n="avg">Average 68%</td></tr></tfoot>
 </table></div>
 <p class="legend"><span class="dot full" aria-hidden="true"></span> <span data-i18n="lgFull">Explained</span> <span class="dot none" aria-hidden="true"></span> <span data-i18n="lgNone">Not yet</span></p>
-        <p class="tnote" data-i18n="commonMistake">Most common mistake on this unit: “plants get their food from the soil”, in 9 of 24 recaps. Mistakes are shown without names.</p>
+        <p class="callout" data-i18n="commonMistake">Most common mistake on this unit: “plants get their food from the soil”, in 9 of 24 recaps. Mistakes are shown without names.</p>
         <p class="tnote" data-i18n="tNote">Made-up names and numbers. Results come from AI and are not grades. No rankings, no single score.</p>
       </div>
     </div>
   </section>
 
-  <section aria-labelledby="out-title">
-    <div class="wrap row">
-      <h2 id="out-title" data-i18n="outTitle">Left out on purpose</h2>
-      <div class="prose">
-        <p data-i18n="outText">No leaderboards. No streaks. No notifications. No answers handed over. No webcam or emotion tracking. Practice, not marks. Designed with GDPR and the EU AI Act in mind.</p>
-      </div>
+  <section class="out" aria-labelledby="out-title">
+    <div class="wrap">
+      <div class="head"><h2 id="out-title" data-i18n="outTitle">Left out on purpose</h2></div>
+      <ul class="chips">
+        <li data-i18n="o1">No leaderboards</li>
+        <li data-i18n="o2">No streaks</li>
+        <li data-i18n="o3">No notifications</li>
+        <li data-i18n="o4">No answers handed over</li>
+        <li data-i18n="o5">No webcam or emotion tracking</li>
+        <li data-i18n="o6">No marks: it is practice</li>
+      </ul>
+      <p class="small" data-i18n="oLaw">Designed with GDPR and the EU AI Act in mind.</p>
     </div>
   </section>
 
   <section id="join" aria-labelledby="join-title">
     <div class="wrap row">
-      <div>
+      <div class="intro">
         <h2 id="join-title" data-i18n="joinTitle">Pilot it with us</h2>
-        <p style="margin-top:1rem;max-width:22rem" data-i18n="joinText">Pilots start January 2027. Leave your email.</p>
+        <p data-i18n="joinText">Pilots start January 2027. Leave your email.</p>
       </div>
       <form id="form" novalidate>
         <div class="field">
@@ -372,6 +437,8 @@ var I18N = {
     qTitle: "Exam-style question", q: "A plant is kept in the dark for a week. What happens to it, and why?",
     nextTitle: "Next step", next: "Explain where the sugar goes after the plant makes it.",
     pipGrow: "Pip grows with every idea the student explains correctly. Time spent in the app does not count.",
+    pipLvl: "Pip · level 3", pipProg: "12 ideas understood. Explain 3 more ideas to help Pip grow.",
+    devSub: "Biology · 12 min left", micHint: "Tap the microphone and explain",
     thStudent: "Student", thCount: "Key ideas explained", lgFull: "Explained", lgNone: "Not yet", noRecap: "No recap yet", moreStu: "18 more students", clsLabel: "Whole class (24)",
     tHead: "What the teacher sees", tCap: "Biology: photosynthesis, one class",
     r1: "What plants take in", r1n: "21 of 24", r2: "What chlorophyll does", r2n: "17 of 24", r3: "Where the sugar goes", r3n: "11 of 24", avg: "Average 68%",
@@ -379,7 +446,8 @@ var I18N = {
     commonMistake: "Most common mistake on this unit: “plants get their food from the soil”, in 9 of 24 recaps. Mistakes are shown without names.",
     tNote: "Made-up names and numbers. Results come from AI and are not grades. No rankings, no single score.",
     outTitle: "Left out on purpose",
-    outText: "No leaderboards. No streaks. No notifications. No answers handed over. No webcam or emotion tracking. Practice, not marks. Designed with GDPR and the EU AI Act in mind.",
+    o1: "No leaderboards", o2: "No streaks", o3: "No notifications", o4: "No answers handed over", o5: "No webcam or emotion tracking", o6: "No marks: it is practice",
+    oLaw: "Designed with GDPR and the EU AI Act in mind.",
     joinTitle: "Pilot it with us", joinText: "Pilots start January 2027. Leave your email.",
     emailLabel: "Email", roleLabel: "I am a", roleChoose: "Choose one",
     roleTeacher: "Teacher", roleLeader: "School leader", roleParent: "Parent or guardian", roleOther: "Other",
@@ -422,6 +490,8 @@ var I18N = {
     qTitle: "Pregunta tipo examen", q: "Una planta pasa una semana a oscuras. ¿Qué le ocurre y por qué?",
     nextTitle: "Siguiente paso", next: "Explica adónde va el azúcar después de que la planta lo fabrica.",
     pipGrow: "Pip crece con cada idea que el alumno explica bien. El tiempo en la aplicación no cuenta.",
+    pipLvl: "Pip · nivel 3", pipProg: "12 ideas entendidas. Explica 3 ideas más para que Pip crezca.",
+    devSub: "Biología · quedan 12 min", micHint: "Toca el micrófono y explica",
     thStudent: "Alumno", thCount: "Ideas clave explicadas", lgFull: "Lo explicó", lgNone: "Aún no", noRecap: "Aún sin relato", moreStu: "18 alumnos más", clsLabel: "Toda la clase (24)",
     tHead: "Lo que ve el docente", tCap: "Biología: fotosíntesis, una clase",
     r1: "Lo que absorben las plantas", r1n: "21 de 24", r2: "Qué hace la clorofila", r2n: "17 de 24", r3: "Adónde va el azúcar", r3n: "11 de 24", avg: "Media 68 %",
@@ -429,7 +499,8 @@ var I18N = {
     commonMistake: "Error más frecuente en esta unidad: «las plantas sacan su alimento de la tierra», en 9 de 24 relatos. Los errores se muestran sin nombres.",
     tNote: "Nombres y números inventados. Los resultados los genera la IA y no son notas. Sin clasificaciones, sin nota única.",
     outTitle: "Fuera a propósito",
-    outText: "Sin clasificaciones. Sin rachas. Sin notificaciones. Sin dar respuestas. Sin cámara ni detección de emociones. Práctica, no notas. Diseñado teniendo en cuenta el RGPD y el Reglamento de IA de la UE.",
+    o1: "Sin clasificaciones", o2: "Sin rachas", o3: "Sin notificaciones", o4: "Sin dar respuestas", o5: "Sin cámara ni detección de emociones", o6: "Sin notas: es práctica",
+    oLaw: "Diseñado teniendo en cuenta el RGPD y el Reglamento de IA de la UE.",
     joinTitle: "Participe en el piloto", joinText: "Los pilotos empiezan en enero de 2027. Deje su correo.",
     emailLabel: "Correo electrónico", roleLabel: "Soy", roleChoose: "Elija una opción",
     roleTeacher: "Docente", roleLeader: "Responsable de centro", roleParent: "Madre, padre o tutor", roleOther: "Otro",
