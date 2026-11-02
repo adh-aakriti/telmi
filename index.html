@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Reverse Study Buddy: tell me what I missed</title>
-<meta name="description" content="A study buddy who was absent today. Students tell it what happened in class, out loud and from memory. Teachers see which ideas stuck. Join the pilot list for secondary schools.">
+<title>Telmi: tell me what I missed</title>
+<meta name="description" content="Pip is a classmate who missed today’s class. Students tell Pip what happened, out loud and from memory. Teachers see which ideas stuck. Join the pilot list for secondary schools.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%231D4ED8'/%3E%3Ccircle cx='11' cy='13' r='2.5' fill='%23fff'/%3E%3Ccircle cx='21' cy='13' r='2.5' fill='%23fff'/%3E%3Cpath d='M10 19q6 6 12 0' stroke='%23fff' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
@@ -111,11 +112,23 @@ table.cls { max-width: none; min-width: 34rem; }
 .cls .none-cell { color: var(--muted); }
 .dot { display: inline-block; width: .95rem; height: .95rem; border-radius: 50%; border: 2px solid var(--ink); vertical-align: -2px; }
 .dot.full { background: var(--ink); }
-.dot.part { background: linear-gradient(90deg, var(--ink) 50%, transparent 50%); }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .legend { color: var(--muted); font-size: .9rem; margin-top: .9rem; }
 .legend .dot { margin-left: .9rem; }
 .legend .dot:first-child { margin-left: 0; }
+
+/* Student results card */
+.card { border: 1.5px solid var(--ink); border-radius: 8px; padding: 1.5rem; max-width: 38rem; }
+.card h3 { font: 700 1rem var(--sans); margin: 1.5rem 0 .4rem; }
+.card p { margin-bottom: .5rem; }
+.card .big { margin-bottom: 1rem; }
+ul.ideas { list-style: none; margin: 0; padding: 0; }
+.ideas li { display: flex; gap: .75rem; align-items: baseline; padding: .45rem 0; border-bottom: 1px solid var(--line); }
+.ideas li:last-child { border-bottom: 0; }
+.ideas b { flex: none; width: 8.5rem; font-size: .9rem; }
+.ideas .todo b { color: var(--muted); }
+.fix { display: grid; grid-template-columns: 5.5rem 1fr; gap: .75rem; align-items: baseline; }
+.fix b { font-size: .9rem; color: var(--muted); }
 
 /* Form */
 .field { margin-bottom: 1.1rem; max-width: 26rem; }
@@ -142,6 +155,9 @@ footer .foot { margin-top: 1.5rem; margin-bottom: 0; }
 @media (max-width: 560px) {
   .right > a { display: none; }
   .mark { white-space: nowrap; }
+  .card { padding: 1.1rem; }
+  .ideas li, .fix { display: block; }
+  .ideas b, .fix b { display: block; width: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -154,7 +170,7 @@ footer .foot { margin-top: 1.5rem; margin-bottom: 0; }
 
 <header class="top">
   <div class="wrap">
-    <a class="mark" href="#top">Reverse Study Buddy</a>
+    <a class="mark" href="#top">Telmi</a>
     <div class="right">
       <div class="lang" role="group" aria-label="Language / Idioma">
         <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
@@ -170,7 +186,7 @@ footer .foot { margin-top: 1.5rem; margin-bottom: 0; }
     <div class="wrap">
       <div>
         <h1 data-i18n="h1">Tell me what I missed.</h1>
-        <p class="lede" data-i18n="lede">A classmate who was absent today. Students tell it what happened in class. Teachers see what stuck.</p>
+        <p class="lede" data-i18n="lede">Pip is a classmate who missed today’s class. Students tell Pip what happened, out loud and from memory. Teachers see what stuck.</p>
         <div class="actions">
           <a class="btn" href="#join" data-i18n="ctaPrimary">Join the pilot list</a>
           <a href="#how" data-i18n="ctaSecondary">How it works</a>
@@ -179,12 +195,12 @@ footer .foot { margin-top: 1.5rem; margin-bottom: 0; }
       </div>
       <div>
         <div class="talk" role="group" aria-label="Example conversation">
-          <p class="say buddy"><b data-i18n="whoBuddy">Buddy</b><span data-i18n="d1">I was absent today. What did we cover in Biology?</span></p>
+          <p class="say buddy"><b data-i18n="whoBuddy">Pip</b><span data-i18n="d1">I was absent today. What did we cover in Biology?</span></p>
           <p class="say"><b data-i18n="whoYou">You</b><span><span data-i18n="y1a">How plants make food. They make </span><mark data-i18n="y1b">sugar from light, water and carbon dioxide.</mark></span></p>
-          <p class="say buddy"><b data-i18n="whoBuddy2">Buddy</b><span data-i18n="d3">Wait, I thought plants ate soil. Is that wrong?</span></p>
+          <p class="say buddy"><b data-i18n="whoBuddy2">Pip</b><span data-i18n="d3">Wait, I thought plants ate soil. Is that wrong?</span></p>
           <p class="say"><b data-i18n="whoYou2">You</b><span data-i18n="y2">Yes. Soil gives them water and minerals, not food.</span></p>
         </div>
-        <p class="cap" data-i18n="dCap">The buddy asks. It never gives the answer.</p>
+        <p class="cap" data-i18n="dCap">Pip asks. Pip never gives the answer, and sometimes gets a fact wrong on purpose for the student to correct.</p>
       </div>
     </div>
   </div>
@@ -207,27 +223,63 @@ footer .foot { margin-top: 1.5rem; margin-bottom: 0; }
       <div>
         <ul class="how">
           <li><strong data-i18n="hw1t">The teacher adds the lesson.</strong> <span data-i18n="hw1d">Slides or notes. Nothing new to make.</span></li>
-          <li><strong data-i18n="hw2t">The student recaps it aloud.</strong> <span data-i18n="hw2d">From memory, ten minutes, screen dimmed.</span></li>
-          <li><strong data-i18n="hw3t">A checker keeps it honest.</strong> <span data-i18n="hw3d">It compares the recap with the teacher’s material. The buddy never gives the answer.</span></li>
+          <li><strong data-i18n="hw2t">The student recaps it aloud.</strong> <span data-i18n="hw2d">From memory, up to 15 minutes. The conversation stays hidden, so the screen stays quiet.</span></li>
+          <li><strong data-i18n="hw3t">A checker keeps it honest.</strong> <span data-i18n="hw3d">A separate, strict checker compares the recap with the teacher’s material. Pip never says whether you are right.</span></li>
           <li><strong data-i18n="hw4t">The teacher sees what stuck.</strong> <span data-i18n="hw4d">Per student, per idea.</span></li>
         </ul>
         <p class="bet" data-i18n="bet">Our bet: knowing you must recap tonight is a reason to listen today. The pilot will test it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="stu-title">
+    <div class="wrap row">
+      <h2 id="stu-title" data-i18n="stuTitle">What the student gets back</h2>
+      <div>
+        <div class="card">
+          <p class="big" data-i18n="rsHead">You explained 4 of 6 key ideas.</p>
+          <ul class="ideas">
+            <li><b data-i18n="done">Explained</b><span data-i18n="ki1">What plants take in</span></li>
+            <li><b data-i18n="done">Explained</b><span data-i18n="ki2">Where it happens: the chloroplasts</span></li>
+            <li><b data-i18n="done">Explained</b><span data-i18n="ki3">What chlorophyll does</span></li>
+            <li><b data-i18n="done">Explained</b><span data-i18n="ki4">What comes out: oxygen</span></li>
+            <li class="todo"><b data-i18n="stillTo">Still to explain</b><span data-i18n="ki5">Where the sugar goes</span></li>
+            <li class="todo"><b data-i18n="stillTo">Still to explain</b><span data-i18n="ki6">Why light matters</span></li>
+          </ul>
+          <h3 data-i18n="fixTitle">Things to fix</h3>
+          <p class="fix"><b data-i18n="youSaid">You said</b> <span data-i18n="fixSaid">“The plant gets its food from the soil.”</span></p>
+          <p class="fix"><b data-i18n="actually">Actually</b> <span data-i18n="fixAct">Soil gives water and minerals. The plant makes its own sugar.</span></p>
+          <h3 data-i18n="qTitle">Exam-style question</h3>
+          <p data-i18n="q">A plant is kept in the dark for a week. What happens to it, and why?</p>
+          <h3 data-i18n="nextTitle">Next step</h3>
+          <p data-i18n="next">Explain where the sugar goes after the plant makes it.</p>
+        </div>
+        <p class="tnote" data-i18n="pipGrow">Pip grows with every idea the student explains correctly. Time spent in the app does not count.</p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="tch-title">
+    <div class="wrap row">
+      <h2 id="tch-title" data-i18n="tHead">What the teacher sees</h2>
+      <div>
         <div class="tscroll"><table class="cls">
-<caption data-i18n="tHead">What the teacher sees</caption>
-<thead><tr><th scope="col" data-i18n="thStudent">Student</th><th scope="col" data-i18n="r1">What plants take in</th><th scope="col" data-i18n="r2">What chlorophyll does</th><th scope="col" data-i18n="r3">Where the sugar goes</th><th scope="col" data-i18n="thMistake">Repeated mistake</th></tr></thead>
+<caption data-i18n="tCap">Biology: photosynthesis, one class</caption>
+<thead><tr><th scope="col" data-i18n="thStudent">Student</th><th scope="col" data-i18n="r1">What plants take in</th><th scope="col" data-i18n="r2">What chlorophyll does</th><th scope="col" data-i18n="r3">Where the sugar goes</th><th scope="col" data-i18n="thCount">Key ideas explained</th></tr></thead>
 <tbody>
-<tr><th scope="row">Ana</th><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td class="none-cell">–</td></tr>
-<tr><th scope="row">Bilal</th><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td><span class="dot part" aria-hidden="true"></span><span class="sr" data-i18n="lgPart">Partly</span></td><td><span class="dot none" aria-hidden="true"></span><span class="sr" data-i18n="lgNone">Not yet</span></td><td data-i18n="mSoil">Plants eat soil</td></tr>
-<tr><th scope="row">Carla</th><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td><span class="dot part" aria-hidden="true"></span><span class="sr" data-i18n="lgPart">Partly</span></td><td class="none-cell">–</td></tr>
-<tr><th scope="row">Dev</th><td><span class="dot part" aria-hidden="true"></span><span class="sr" data-i18n="lgPart">Partly</span></td><td><span class="dot none" aria-hidden="true"></span><span class="sr" data-i18n="lgNone">Not yet</span></td><td><span class="dot none" aria-hidden="true"></span><span class="sr" data-i18n="lgNone">Not yet</span></td><td data-i18n="mSoil">Plants eat soil</td></tr>
-<tr><th scope="row">Elena</th><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td><span class="dot part" aria-hidden="true"></span><span class="sr" data-i18n="lgPart">Partly</span></td><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td class="none-cell">–</td></tr>
+<tr><th scope="row">Ana</th><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td data-i18n="c3">3 of 3</td></tr>
+<tr><th scope="row">Bilal</th><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td><span class="dot none" aria-hidden="true"></span><span class="sr" data-i18n="lgNone">Not yet</span></td><td><span class="dot none" aria-hidden="true"></span><span class="sr" data-i18n="lgNone">Not yet</span></td><td data-i18n="c1">1 of 3</td></tr>
+<tr><th scope="row">Carla</th><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td><span class="dot none" aria-hidden="true"></span><span class="sr" data-i18n="lgNone">Not yet</span></td><td data-i18n="c2">2 of 3</td></tr>
+<tr><th scope="row">Dev</th><td><span class="dot none" aria-hidden="true"></span><span class="sr" data-i18n="lgNone">Not yet</span></td><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td><span class="dot none" aria-hidden="true"></span><span class="sr" data-i18n="lgNone">Not yet</span></td><td data-i18n="c1">1 of 3</td></tr>
+<tr><th scope="row">Elena</th><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td><span class="dot none" aria-hidden="true"></span><span class="sr" data-i18n="lgNone">Not yet</span></td><td><span class="dot full" aria-hidden="true"></span><span class="sr" data-i18n="lgFull">Explained</span></td><td data-i18n="c2">2 of 3</td></tr>
 <tr><th scope="row">Farid</th><td colspan="4" class="muted" data-i18n="noRecap">No recap yet</td></tr>
 <tr><td colspan="5" class="muted" data-i18n="moreStu">18 more students</td></tr>
 </tbody>
-<tfoot><tr><th scope="row" data-i18n="clsLabel">Whole class (24)</th><td data-i18n="r1n">21 of 24</td><td data-i18n="r2n">17 of 24</td><td data-i18n="r3n">11 of 24</td><td data-i18n="r4n">9 of 24</td></tr></tfoot>
+<tfoot><tr><th scope="row" data-i18n="clsLabel">Whole class (24)</th><td data-i18n="r1n">21 of 24</td><td data-i18n="r2n">17 of 24</td><td data-i18n="r3n">11 of 24</td><td data-i18n="avg">Average 68%</td></tr></tfoot>
 </table></div>
-<p class="legend"><span class="dot full" aria-hidden="true"></span> <span data-i18n="lgFull">Explained</span> <span class="dot part" aria-hidden="true"></span> <span data-i18n="lgPart">Partly</span> <span class="dot none" aria-hidden="true"></span> <span data-i18n="lgNone">Not yet</span></p>
-        <p class="tnote" data-i18n="tNote">Made-up names and numbers. No rankings, no single score.</p>
+<p class="legend"><span class="dot full" aria-hidden="true"></span> <span data-i18n="lgFull">Explained</span> <span class="dot none" aria-hidden="true"></span> <span data-i18n="lgNone">Not yet</span></p>
+        <p class="tnote" data-i18n="commonMistake">Most common mistake on this unit: “plants get their food from the soil”, in 9 of 24 recaps. Mistakes are shown without names.</p>
+        <p class="tnote" data-i18n="tNote">Made-up names and numbers. Results come from AI and are not grades. No rankings, no single score.</p>
       </div>
     </div>
   </section>
@@ -236,7 +288,7 @@ footer .foot { margin-top: 1.5rem; margin-bottom: 0; }
     <div class="wrap row">
       <h2 id="out-title" data-i18n="outTitle">Left out on purpose</h2>
       <div class="prose">
-        <p data-i18n="outText">No leaderboards. No streaks. No notifications. No answers handed over. No webcam or emotion tracking. Practice, not marks. Built for GDPR and the EU AI Act.</p>
+        <p data-i18n="outText">No leaderboards. No streaks. No notifications. No answers handed over. No webcam or emotion tracking. Practice, not marks. Designed with GDPR and the EU AI Act in mind.</p>
       </div>
     </div>
   </section>
@@ -296,30 +348,38 @@ var I18N = {
   en: {
     skip: "Skip to sign-up", navJoin: "Join the pilot",
     h1: "Tell me what I missed.",
-    lede: "A classmate who was absent today. Students tell it what happened in class. Teachers see what stuck.",
+    lede: "Pip is a classmate who missed today’s class. Students tell Pip what happened, out loud and from memory. Teachers see what stuck.",
     ctaPrimary: "Join the pilot list", ctaSecondary: "How it works",
     heroNote: "For ESO and Bachillerato. Pilot from January 2027.",
-    whoBuddy: "Buddy", whoYou: "You", whoBuddy2: "Buddy", whoYou2: "You",
+    whoBuddy: "Pip", whoYou: "You", whoBuddy2: "Pip", whoYou2: "You",
     d1: "I was absent today. What did we cover in Biology?",
     y1a: "How plants make food. They make ", y1b: "sugar from light, water and carbon dioxide.",
     d3: "Wait, I thought plants ate soil. Is that wrong?",
     y2: "Yes. Soil gives them water and minerals, not food.",
-    dCap: "The buddy asks. It never gives the answer.",
+    dCap: "Pip asks. Pip never gives the answer, and sometimes gets a fact wrong on purpose for the student to correct.",
     whyTitle: "The problem",
     why1: "Students cram the night before.",
     why2: "Parents fear AI does the thinking.",
     why3: "Teachers have no time and no guidance.",
     howTitle: "The idea",
     hw1t: "The teacher adds the lesson.", hw1d: "Slides or notes. Nothing new to make.",
-    hw2t: "The student recaps it aloud.", hw2d: "From memory, ten minutes, screen dimmed.",
-    hw3t: "A checker keeps it honest.", hw3d: "It compares the recap with the teacher’s material. The buddy never gives the answer.",
+    hw2t: "The student recaps it aloud.", hw2d: "From memory, up to 15 minutes. The conversation stays hidden, so the screen stays quiet.",
+    hw3t: "A checker keeps it honest.", hw3d: "A separate, strict checker compares the recap with the teacher’s material. Pip never says whether you are right.",
     hw4t: "The teacher sees what stuck.", hw4d: "Per student, per idea.",
-    thStudent: "Student", thMistake: "Repeated mistake", lgFull: "Explained", lgPart: "Partly", lgNone: "Not yet", mSoil: "Plants eat soil", noRecap: "No recap yet", moreStu: "18 more students", clsLabel: "Whole class (24)",
-    tHead: "What the teacher sees", thIdea: "Idea", thN: "Students who explained it",
-    r1: "What plants take in", r1n: "21 of 24", r2: "What chlorophyll does", r2n: "17 of 24", r3: "Where the sugar goes", r3n: "11 of 24", r4: "Mistake: plants eat soil", r4n: "9 of 24",
-    tNote: "Made-up names and numbers. No rankings, no single score.",
+    stuTitle: "What the student gets back", rsHead: "You explained 4 of 6 key ideas.", done: "Explained", stillTo: "Still to explain",
+    ki1: "What plants take in", ki2: "Where it happens: the chloroplasts", ki3: "What chlorophyll does", ki4: "What comes out: oxygen", ki5: "Where the sugar goes", ki6: "Why light matters",
+    fixTitle: "Things to fix", youSaid: "You said", fixSaid: "“The plant gets its food from the soil.”", actually: "Actually", fixAct: "Soil gives water and minerals. The plant makes its own sugar.",
+    qTitle: "Exam-style question", q: "A plant is kept in the dark for a week. What happens to it, and why?",
+    nextTitle: "Next step", next: "Explain where the sugar goes after the plant makes it.",
+    pipGrow: "Pip grows with every idea the student explains correctly. Time spent in the app does not count.",
+    thStudent: "Student", thCount: "Key ideas explained", lgFull: "Explained", lgNone: "Not yet", noRecap: "No recap yet", moreStu: "18 more students", clsLabel: "Whole class (24)",
+    tHead: "What the teacher sees", tCap: "Biology: photosynthesis, one class",
+    r1: "What plants take in", r1n: "21 of 24", r2: "What chlorophyll does", r2n: "17 of 24", r3: "Where the sugar goes", r3n: "11 of 24", avg: "Average 68%",
+    c1: "1 of 3", c2: "2 of 3", c3: "3 of 3",
+    commonMistake: "Most common mistake on this unit: “plants get their food from the soil”, in 9 of 24 recaps. Mistakes are shown without names.",
+    tNote: "Made-up names and numbers. Results come from AI and are not grades. No rankings, no single score.",
     outTitle: "Left out on purpose",
-    outText: "No leaderboards. No streaks. No notifications. No answers handed over. No webcam or emotion tracking. Practice, not marks. Built for GDPR and the EU AI Act.",
+    outText: "No leaderboards. No streaks. No notifications. No answers handed over. No webcam or emotion tracking. Practice, not marks. Designed with GDPR and the EU AI Act in mind.",
     joinTitle: "Pilot it with us", joinText: "Pilots start January 2027. Leave your email.",
     emailLabel: "Email", roleLabel: "I am a", roleChoose: "Choose one",
     roleTeacher: "Teacher", roleLeader: "School leader", roleParent: "Parent or guardian", roleOther: "Other",
@@ -338,31 +398,39 @@ var I18N = {
   es: {
     skip: "Ir al formulario", navJoin: "Unirme al piloto",
     h1: "Cuéntame lo que me perdí.",
-    lede: "Un compañero que hoy faltó a clase. El alumnado le cuenta lo que pasó. El profesorado ve qué ha calado.",
+    lede: "Pip es un compañero que hoy faltó a clase. El alumnado le cuenta lo que pasó, en voz alta y de memoria. El profesorado ve qué ha calado.",
     ctaPrimary: "Unirme a la lista del piloto", ctaSecondary: "Cómo funciona",
     heroNote: "Para ESO y Bachillerato. Piloto desde enero de 2027.",
-    whoBuddy: "Buddy", whoYou: "Tú", whoBuddy2: "Buddy", whoYou2: "Tú",
+    whoBuddy: "Pip", whoYou: "Tú", whoBuddy2: "Pip", whoYou2: "Tú",
     d1: "Hoy falté. ¿Qué dieron en Biología?",
     y1a: "Cómo las plantas fabrican su alimento. Hacen ", y1b: "azúcar con luz, agua y dióxido de carbono.",
     d3: "Espera, yo creía que las plantas comían tierra. ¿Está mal?",
     y2: "Sí. La tierra les da agua y minerales, no alimento.",
-    dCap: "El compañero pregunta. Nunca da la respuesta.",
+    dCap: "Pip pregunta. Nunca da la respuesta y a veces se equivoca a propósito para que el alumno lo corrija.",
     whyTitle: "El problema",
     why1: "El alumnado estudia la noche antes.",
     why2: "Las familias temen que la IA piense por ellos.",
     why3: "El profesorado no tiene tiempo ni pautas.",
     howTitle: "La idea",
     hw1t: "El docente añade la lección.", hw1d: "Presentaciones o apuntes. Nada nuevo que preparar.",
-    hw2t: "El alumno la cuenta en voz alta.", hw2d: "De memoria, diez minutos, pantalla atenuada.",
-    hw3t: "Un verificador mantiene la honestidad.", hw3d: "Compara el relato con el material del docente. El compañero nunca da la respuesta.",
+    hw2t: "El alumno la cuenta en voz alta.", hw2d: "De memoria, hasta 15 minutos. La conversación queda oculta para que la pantalla no distraiga.",
+    hw3t: "Un verificador mantiene la honestidad.", hw3d: "Un verificador aparte, estricto, compara el relato con el material del docente. Pip nunca dice si tienes razón.",
     hw4t: "El docente ve lo que ha calado.", hw4d: "Por alumno y por idea.",
-    thStudent: "Alumno", thMistake: "Error repetido", lgFull: "Lo explicó", lgPart: "En parte", lgNone: "Aún no", mSoil: "Las plantas comen tierra", noRecap: "Aún sin relato", moreStu: "18 alumnos más", clsLabel: "Toda la clase (24)",
-    tHead: "Lo que ve el docente", thIdea: "Idea", thN: "Alumnos que la explicaron",
-    r1: "Lo que absorben las plantas", r1n: "21 de 24", r2: "Qué hace la clorofila", r2n: "17 de 24", r3: "Adónde va el azúcar", r3n: "11 de 24", r4: "Error: las plantas comen tierra", r4n: "9 de 24",
-    tNote: "Nombres y números inventados. Sin clasificaciones, sin nota única.",
+    stuTitle: "Lo que recibe el alumno", rsHead: "Explicaste 4 de 6 ideas clave.", done: "Explicada", stillTo: "Falta explicar",
+    ki1: "Lo que absorben las plantas", ki2: "Dónde ocurre: los cloroplastos", ki3: "Qué hace la clorofila", ki4: "Qué se libera: oxígeno", ki5: "Adónde va el azúcar", ki6: "Por qué importa la luz",
+    fixTitle: "Para corregir", youSaid: "Dijiste", fixSaid: "«La planta saca su alimento de la tierra».", actually: "En realidad", fixAct: "La tierra aporta agua y minerales. La planta fabrica su propio azúcar.",
+    qTitle: "Pregunta tipo examen", q: "Una planta pasa una semana a oscuras. ¿Qué le ocurre y por qué?",
+    nextTitle: "Siguiente paso", next: "Explica adónde va el azúcar después de que la planta lo fabrica.",
+    pipGrow: "Pip crece con cada idea que el alumno explica bien. El tiempo en la aplicación no cuenta.",
+    thStudent: "Alumno", thCount: "Ideas clave explicadas", lgFull: "Lo explicó", lgNone: "Aún no", noRecap: "Aún sin relato", moreStu: "18 alumnos más", clsLabel: "Toda la clase (24)",
+    tHead: "Lo que ve el docente", tCap: "Biología: fotosíntesis, una clase",
+    r1: "Lo que absorben las plantas", r1n: "21 de 24", r2: "Qué hace la clorofila", r2n: "17 de 24", r3: "Adónde va el azúcar", r3n: "11 de 24", avg: "Media 68 %",
+    c1: "1 de 3", c2: "2 de 3", c3: "3 de 3",
+    commonMistake: "Error más frecuente en esta unidad: «las plantas sacan su alimento de la tierra», en 9 de 24 relatos. Los errores se muestran sin nombres.",
+    tNote: "Nombres y números inventados. Los resultados los genera la IA y no son notas. Sin clasificaciones, sin nota única.",
     outTitle: "Fuera a propósito",
-    outText: "Sin clasificaciones. Sin rachas. Sin notificaciones. Sin dar respuestas. Sin cámara ni detección de emociones. Práctica, no notas. Diseñado para el RGPD y el Reglamento de IA de la UE.",
-    joinTitle: "Pilótelo con nosotros", joinText: "Los pilotos empiezan en enero de 2027. Deje su correo.",
+    outText: "Sin clasificaciones. Sin rachas. Sin notificaciones. Sin dar respuestas. Sin cámara ni detección de emociones. Práctica, no notas. Diseñado teniendo en cuenta el RGPD y el Reglamento de IA de la UE.",
+    joinTitle: "Participe en el piloto", joinText: "Los pilotos empiezan en enero de 2027. Deje su correo.",
     emailLabel: "Correo electrónico", roleLabel: "Soy", roleChoose: "Elija una opción",
     roleTeacher: "Docente", roleLeader: "Responsable de centro", roleParent: "Madre, padre o tutor", roleOther: "Otro",
     consent: "Acepto que me escriban sobre el piloto y que se guarde mi correo con ese fin. Puedo pedir que lo eliminen en cualquier momento.",

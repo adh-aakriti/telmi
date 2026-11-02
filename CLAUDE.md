@@ -1,4 +1,4 @@
-# StudyBuddy: landing page
+# Telmi: landing page
 
 ## What this is
 A one-page bilingual (EN/ES) landing page for a student project: a study
@@ -17,5 +17,5 @@ collects emails for a pilot with secondary schools (ESO/Bachillerato).
 - Keep WCAG 2.1 AA: labels, focus styles, contrast, reduced motion.
 - Keep EN and ES copy in sync (I18N object in index.html).
 - Do not call the product an "AI tutor"; the student teaches, the AI learns.
-- Product name: StudyBuddy.
+- Product name: Telmi. The buddy is called Pip. App repo: https://github.com/jinin-alj/telmi (keep page claims in line with its README).
 - Placeholders still to fill: [TEAM NAME] / [NOMBRE DEL EQUIPO].
