@@ -111,6 +111,7 @@ h2 { font-size: clamp(1.75rem, 3.4vw, 2.4rem); font-weight: 800; letter-spacing:
 .problem .card .num { display: block; color: var(--primary); font-size: .9rem; font-weight: 700; margin-bottom: .5rem; }
 .problem .small { margin: 1.25rem 0 0; }
 
+.sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 /* How it works */
 ul.how { list-style: none; margin: 0; padding: 0; counter-reset: s; }
 .how li { counter-increment: s; }
@@ -235,7 +236,7 @@ footer .foot { margin: 1rem 0 0; }
         <p class="lede" data-i18n="lede">Pip is a classmate who missed today’s class. Students tell Pip what happened, out loud and from memory. Teachers see what stuck.</p>
         <div class="actions">
           <a class="btn" href="#join" data-i18n="ctaPrimary">Join the pilot list</a>
-          <a class="btn secondary" href="#how" data-i18n="ctaSecondary">How it works</a>
+          <a class="btn secondary" href="https://telmi-study.vercel.app/sign-in" target="_blank" rel="noopener"><span data-i18n="ctaSecondary">How it works</span><span class="sr" data-i18n="newTab"> (opens in a new tab)</span></a>
         </div>
       </div>
       <div>
@@ -414,7 +415,7 @@ var I18N = {
     skip: "Skip to sign-up", navJoin: "Join the pilot",
     h1: "Tell me what I missed.",
     lede: "Pip is a classmate who missed today’s class. Students tell Pip what happened, out loud and from memory. Teachers see what stuck.",
-    ctaPrimary: "Join the pilot list", ctaSecondary: "How it works",
+    ctaPrimary: "Join the pilot list", ctaSecondary: "How it works", newTab: " (opens in a new tab)",
     heroNote: "For ESO and Bachillerato. Pilot from January 2027.",
     whoBuddy: "Pip", whoYou: "You", whoBuddy2: "Pip", whoYou2: "You",
     d1: "I was absent today. What did we cover in Biology?",
@@ -467,7 +468,7 @@ var I18N = {
     skip: "Ir al formulario", navJoin: "Unirme al piloto",
     h1: "Cuéntame lo que me perdí.",
     lede: "Pip es un compañero que hoy faltó a clase. El alumnado le cuenta lo que pasó, en voz alta y de memoria. El profesorado ve qué ha calado.",
-    ctaPrimary: "Unirme a la lista del piloto", ctaSecondary: "Cómo funciona",
+    ctaPrimary: "Unirme a la lista del piloto", ctaSecondary: "Cómo funciona", newTab: " (se abre en una pestaña nueva)",
     heroNote: "Para ESO y Bachillerato. Piloto desde enero de 2027.",
     whoBuddy: "Pip", whoYou: "Tú", whoBuddy2: "Pip", whoYou2: "Tú",
     d1: "Hoy falté. ¿Qué dieron en Biología?",
