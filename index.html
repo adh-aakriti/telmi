@@ -170,6 +170,7 @@ ul.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wr
 #join { background: var(--sky); }
 #join .row { display: grid; grid-template-columns: 1fr 1.1fr; gap: 3rem; align-items: start; }
 #join .row > * { min-width: 0; }
+#join .intro .btn { margin-top: .5rem; }
 #join .intro p { color: var(--muted); font-size: 1.1rem; margin-top: .75rem; }
 form { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 1.75rem; box-shadow: 0 12px 32px -16px rgba(29,78,216,.25); }
 .field { margin-bottom: 1.1rem; }
@@ -237,6 +238,7 @@ footer .foot { margin: 1rem 0 0; }
         <div class="actions">
           <a class="btn" href="#join" data-i18n="ctaPrimary">Join the pilot list</a>
           <a class="btn secondary" href="https://telmi-study.vercel.app/sign-in" target="_blank" rel="noopener"><span data-i18n="ctaSecondary">How it works</span><span class="sr" data-i18n="newTab"> (opens in a new tab)</span></a>
+          <a class="btn secondary" href="https://bookings.cloud.microsoft/book/TelmiLiveDemo@iebs.onmicrosoft.com/" target="_blank" rel="noopener"><span data-i18n="ctaBook">Book a demo call</span><span class="sr" data-i18n="newTab"> (opens in a new tab)</span></a>
         </div>
       </div>
       <div>
@@ -364,6 +366,8 @@ footer .foot { margin: 1rem 0 0; }
       <div class="intro">
         <h2 id="join-title" data-i18n="joinTitle">Pilot it with us</h2>
         <p data-i18n="joinText">Pilots start January 2027. Leave your email.</p>
+        <p class="call"><span data-i18n="joinCall">Prefer to talk first?</span></p>
+        <a class="btn secondary" href="https://bookings.cloud.microsoft/book/TelmiLiveDemo@iebs.onmicrosoft.com/" target="_blank" rel="noopener"><span data-i18n="ctaBook">Book a demo call</span><span class="sr" data-i18n="newTab"> (opens in a new tab)</span></a>
       </div>
       <form id="form" novalidate>
         <div class="field">
@@ -397,7 +401,7 @@ footer .foot { margin: 1rem 0 0; }
 
 <footer id="privacy">
   <div class="wrap">
-    <p><strong data-i18n="privTitle">Your data.</strong> <span data-i18n="priv">We store your email, role, language and consent time, only to write to you about the pilot. We never sell or share it, and we delete it on request. Contact: </span><a href="mailto:aadhikari.ieu2024@student.ie.edu">aadhikari.ieu2024@student.ie.edu</a>, <a href="tel:+34603168032">+34 603 168 032</a> <span data-i18n="privWho">([TEAM NAME]).</span></p>
+    <p><strong data-i18n="privTitle">Your data.</strong> <span data-i18n="priv">We store your email, role, language and consent time, only to write to you about the pilot. We never sell or share it, and we delete it on request. If you book a demo call, Microsoft Bookings receives the name and email you enter so we can send the invitation. Contact: </span><a href="mailto:aadhikari.ieu2024@student.ie.edu">aadhikari.ieu2024@student.ie.edu</a>, <a href="tel:+34603168032">+34 603 168 032</a> <span data-i18n="privWho">([TEAM NAME]).</span></p>
     <p class="foot" data-i18n="foot">An early-stage project. The product is not available yet.</p>
   </div>
 </footer>
@@ -415,7 +419,7 @@ var I18N = {
     skip: "Skip to sign-up", navJoin: "Join the pilot",
     h1: "Tell me what I missed.",
     lede: "Pip is a classmate who missed today’s class. Students tell Pip what happened, out loud and from memory. Teachers see what stuck.",
-    ctaPrimary: "Join the pilot list", ctaSecondary: "How it works", newTab: " (opens in a new tab)",
+    ctaPrimary: "Join the pilot list", ctaSecondary: "How it works", ctaBook: "Book a demo call", newTab: " (opens in a new tab)",
     heroNote: "For ESO and Bachillerato. Pilot from January 2027.",
     whoBuddy: "Pip", whoYou: "You", whoBuddy2: "Pip", whoYou2: "You",
     d1: "I was absent today. What did we cover in Biology?",
@@ -449,13 +453,13 @@ var I18N = {
     outTitle: "Left out on purpose",
     o1: "No leaderboards", o2: "No streaks", o3: "No notifications", o4: "No answers handed over", o5: "No webcam or emotion tracking", o6: "No marks: it is practice",
     oLaw: "Designed with GDPR and the EU AI Act in mind.",
-    joinTitle: "Pilot it with us", joinText: "Pilots start January 2027. Leave your email.",
+    joinTitle: "Pilot it with us", joinText: "Pilots start January 2027. Leave your email.", joinCall: "Prefer to talk first?",
     emailLabel: "Email", roleLabel: "I am a", roleChoose: "Choose one",
     roleTeacher: "Teacher", roleLeader: "School leader", roleParent: "Parent or guardian", roleOther: "Other",
     consent: "I agree to be emailed about the pilot and to have my email stored for that purpose. I can ask to be removed at any time.",
     submit: "Join the list", saving: "Saving…",
     privTitle: "Your data.",
-    priv: "We store your email, role, language and consent time, only to write to you about the pilot. We never sell or share it, and we delete it on request. Contact: ",
+    priv: "We store your email, role, language and consent time, only to write to you about the pilot. We never sell or share it, and we delete it on request. If you book a demo call, Microsoft Bookings receives the name and email you enter so we can send the invitation. Contact: ",
     privWho: "([TEAM NAME]).",
     foot: "An early-stage project. The product is not available yet.",
     ok: "Thanks. You are on the list.", dup: "This email is already on the list.",
@@ -468,7 +472,7 @@ var I18N = {
     skip: "Ir al formulario", navJoin: "Unirme al piloto",
     h1: "Cuéntame lo que me perdí.",
     lede: "Pip es un compañero que hoy faltó a clase. El alumnado le cuenta lo que pasó, en voz alta y de memoria. El profesorado ve qué ha calado.",
-    ctaPrimary: "Unirme a la lista del piloto", ctaSecondary: "Cómo funciona", newTab: " (se abre en una pestaña nueva)",
+    ctaPrimary: "Unirme a la lista del piloto", ctaSecondary: "Cómo funciona", ctaBook: "Reservar una demo", newTab: " (se abre en una pestaña nueva)",
     heroNote: "Para ESO y Bachillerato. Piloto desde enero de 2027.",
     whoBuddy: "Pip", whoYou: "Tú", whoBuddy2: "Pip", whoYou2: "Tú",
     d1: "Hoy falté. ¿Qué dieron en Biología?",
@@ -502,13 +506,13 @@ var I18N = {
     outTitle: "Fuera a propósito",
     o1: "Sin clasificaciones", o2: "Sin rachas", o3: "Sin notificaciones", o4: "Sin dar respuestas", o5: "Sin cámara ni detección de emociones", o6: "Sin notas: es práctica",
     oLaw: "Diseñado teniendo en cuenta el RGPD y el Reglamento de IA de la UE.",
-    joinTitle: "Participe en el piloto", joinText: "Los pilotos empiezan en enero de 2027. Deje su correo.",
+    joinTitle: "Participe en el piloto", joinText: "Los pilotos empiezan en enero de 2027. Deje su correo.", joinCall: "¿Prefiere hablar antes?",
     emailLabel: "Correo electrónico", roleLabel: "Soy", roleChoose: "Elija una opción",
     roleTeacher: "Docente", roleLeader: "Responsable de centro", roleParent: "Madre, padre o tutor", roleOther: "Otro",
     consent: "Acepto que me escriban sobre el piloto y que se guarde mi correo con ese fin. Puedo pedir que lo eliminen en cualquier momento.",
     submit: "Unirme a la lista", saving: "Guardando…",
     privTitle: "Sus datos.",
-    priv: "Guardamos su correo, perfil, idioma y la fecha de su consentimiento, solo para escribirle sobre el piloto. Nunca lo vendemos ni lo compartimos, y lo eliminamos si lo pide. Contacto: ",
+    priv: "Guardamos su correo, perfil, idioma y la fecha de su consentimiento, solo para escribirle sobre el piloto. Nunca lo vendemos ni lo compartimos, y lo eliminamos si lo pide. Si reserva una llamada de demostración, Microsoft Bookings recibe el nombre y el correo que indique para enviarle la invitación. Contacto: ",
     privWho: "([NOMBRE DEL EQUIPO]).",
     foot: "Un proyecto en fase inicial. El producto todavía no está disponible.",
     ok: "Gracias. Ya está en la lista.", dup: "Este correo ya está en la lista.",
