@@ -19,3 +19,4 @@ collects emails for a pilot with secondary schools (ESO/Bachillerato).
 - Keep EN and ES copy in sync (I18N object in index.html).
 - Do not call the product an "AI tutor"; the student teaches, the AI learns.
 - Product name: Telmi. The buddy is called Pip. App repo: https://github.com/jinin-alj/telmi (keep page claims in line with its README).
+- Pip is drawn only from the app's brand files (assets/brand/pip in the app repo, copied to assets/pip here); never redraw it. The logo is Pip plus "telmi" in lowercase. favicon.png and apple-touch-icon.png are copies of the app's icons.
