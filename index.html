@@ -56,12 +56,14 @@
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--bg); color: var(--text); font: 400 1.0625rem/1.6 var(--font); }
+/* Never leave one word alone on a last line: every text avoids it, and short headings split into even lines */
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 1.0625rem/1.6 var(--font); text-wrap: pretty; }
 :focus-visible { outline: 3px solid var(--link); outline-offset: 3px; border-radius: 4px; }
 .skip { position: absolute; left: -999px; top: 0; background: var(--text); color: var(--panel); padding: .6rem 1rem; z-index: 20; border-radius: 0 0 8px 0; }
 .skip:focus { left: 0; }
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
 h1, h2, h3 { margin: 0; line-height: 1.15; }
+h1, h2, h3, caption, th, .pill, .summary, .problem .card p, .how strong { text-wrap: balance; }
 p { margin: 0 0 1rem; }
 a { color: var(--link); text-underline-offset: 3px; }
 a:hover { color: var(--link-hover); }
@@ -91,9 +93,12 @@ header.top .wrap { display: flex; align-items: center; justify-content: space-be
 
 /* Hero */
 .hero { background: linear-gradient(180deg, var(--primary-soft) 0%, var(--bg) 100%); padding: 4rem 0 5rem; }
-.hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 4rem; align-items: center; }
+.hero .wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center; }
 .pill { display: inline-block; background: var(--panel); color: var(--text); font-weight: 600; font-size: .9rem; border-radius: 99px; padding: .35rem .85rem; margin-bottom: 1.25rem; }
-h1 { font-family: var(--display); font-size: clamp(2.6rem, 6vw, 4.5rem); font-weight: 600; line-height: 1.05; margin-bottom: 1.25rem; }
+/* The brand's hero size, 36px on phones to 56px on desktop, keeps the headline on one line beside the phone */
+h1 { font-family: var(--display); font-size: clamp(2.25rem, 4.6vw, 3.5rem); font-weight: 600; line-height: 1.05; margin-bottom: 1.25rem; }
+/* The Spanish headline is a fifth longer, so it is set a step smaller to stay on one line too */
+html[lang="es"] h1 { font-size: clamp(2.25rem, 4vw, 2.8rem); }
 .lede { font-size: 1.25rem; color: var(--muted); max-width: 32rem; margin-bottom: 2rem; }
 .actions { display: flex; gap: .75rem; flex-wrap: wrap; }
 
