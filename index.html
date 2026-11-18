@@ -166,12 +166,6 @@ thead th { font-weight: 600; color: var(--muted); font-size: .875rem; line-heigh
 .tnote { color: var(--muted); font-size: .9rem; margin: .4rem 0 0; }
 .callout { background: var(--warning-soft); border-radius: 12px; padding: .75rem 1rem; margin-top: 1rem; font-size: .95rem; }
 
-/* Left out on purpose */
-ul.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .6rem; }
-.chips li { display: flex; align-items: center; gap: .5rem; background: var(--panel); border-radius: 99px; padding: .55rem 1rem; font-weight: 600; }
-.chips li::before { content: ""; width: .8rem; height: 2px; background: var(--error); border-radius: 2px; }
-.out .small { margin: 1.25rem 0 0; }
-
 /* Sign-up */
 #join { background: var(--primary-soft); }
 #join .row { display: grid; grid-template-columns: 1fr 1.1fr; gap: 3rem; align-items: start; }
@@ -195,7 +189,6 @@ form .btn { width: 100%; }
 footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3rem; color: var(--muted); font-size: .95rem; }
 footer p { max-width: 46rem; }
 footer a { overflow-wrap: anywhere; }
-footer .foot { margin: 1rem 0 0; }
 
 @media (max-width: 900px) {
   .hero .wrap, .results, #join .row { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -380,21 +373,6 @@ footer .foot { margin: 1rem 0 0; }
     </div>
   </section>
 
-  <section class="out" aria-labelledby="out-title">
-    <div class="wrap">
-      <div class="head"><h2 id="out-title" data-i18n="outTitle">Left out on purpose</h2></div>
-      <ul class="chips">
-        <li data-i18n="o1">No leaderboards</li>
-        <li data-i18n="o2">No streaks</li>
-        <li data-i18n="o3">No notifications</li>
-        <li data-i18n="o4">No answers handed over</li>
-        <li data-i18n="o5">No webcam or emotion tracking</li>
-        <li data-i18n="o6">No marks: it is practice</li>
-      </ul>
-      <p class="small" data-i18n="oLaw">Designed with GDPR and the EU AI Act in mind.</p>
-    </div>
-  </section>
-
   <section id="join" aria-labelledby="join-title">
     <div class="wrap row">
       <div class="intro">
@@ -435,8 +413,7 @@ footer .foot { margin: 1rem 0 0; }
 
 <footer id="privacy">
   <div class="wrap">
-    <p><strong data-i18n="privTitle">Your data.</strong> <span data-i18n="priv">We store your email, role, language and consent time, only to write to you about the pilot. We never sell or share it. To have it deleted, reply to any email from us. If you book a demo call, Microsoft Bookings receives the name and email you enter so we can send the invitation. </span><span data-i18n="privWho">([TEAM NAME]).</span></p>
-    <p class="foot" data-i18n="foot">An early-stage project. The product is not available yet.</p>
+    <p><strong data-i18n="privTitle">Your data.</strong> <span data-i18n="priv">We store your email, role, language and consent time, only to write to you about the pilot. We never sell or share it. To have it deleted, reply to any email from us. If you book a demo call, Microsoft Bookings receives the name and email you enter so we can send the invitation.</span></p>
   </div>
 </footer>
 
@@ -484,18 +461,13 @@ var I18N = {
     c1: "1 of 3", c2: "2 of 3", c3: "3 of 3",
     commonMistake: "Most common mistake on this unit: “plants get their food from the soil”, in 9 of 24 recaps. Mistakes are shown without names.",
     tNote: "Made-up names and numbers. Results come from AI and are not grades. No rankings, no single score.",
-    outTitle: "Left out on purpose",
-    o1: "No leaderboards", o2: "No streaks", o3: "No notifications", o4: "No answers handed over", o5: "No webcam or emotion tracking", o6: "No marks: it is practice",
-    oLaw: "Designed with GDPR and the EU AI Act in mind.",
     joinTitle: "Pilot it with us", joinText: "Pilots start January 2027. Leave your email.", joinCall: "Prefer to talk first?",
     emailLabel: "Email", roleLabel: "I am a", roleChoose: "Choose one",
     roleTeacher: "Teacher", roleLeader: "School leader", roleParent: "Parent or guardian", roleOther: "Other",
     consent: "I agree to be emailed about the pilot and to have my email stored for that purpose. I can ask to be removed at any time.",
     submit: "Join the list", saving: "Saving…",
     privTitle: "Your data.",
-    priv: "We store your email, role, language and consent time, only to write to you about the pilot. We never sell or share it. To have it deleted, reply to any email from us. If you book a demo call, Microsoft Bookings receives the name and email you enter so we can send the invitation. ",
-    privWho: "([TEAM NAME]).",
-    foot: "An early-stage project. The product is not available yet.",
+    priv: "We store your email, role, language and consent time, only to write to you about the pilot. We never sell or share it. To have it deleted, reply to any email from us. If you book a demo call, Microsoft Bookings receives the name and email you enter so we can send the invitation.",
     ok: "Thanks. You are on the list.", dup: "This email is already on the list.",
     badEmail: "Enter a valid email address.", noRole: "Choose your role.", noConsent: "Tick the box to continue.",
     fail: "We could not save your email. Try again in a few minutes.", notConfigured: "The form is not connected yet. Add the Supabase URL and key in the page settings.",
@@ -537,18 +509,13 @@ var I18N = {
     c1: "1 de 3", c2: "2 de 3", c3: "3 de 3",
     commonMistake: "Error más frecuente en esta unidad: «las plantas sacan su alimento de la tierra», en 9 de 24 relatos. Los errores se muestran sin nombres.",
     tNote: "Nombres y números inventados. Los resultados los genera la IA y no son notas. Sin clasificaciones, sin nota única.",
-    outTitle: "Fuera a propósito",
-    o1: "Sin clasificaciones", o2: "Sin rachas", o3: "Sin notificaciones", o4: "Sin dar respuestas", o5: "Sin cámara ni detección de emociones", o6: "Sin notas: es práctica",
-    oLaw: "Diseñado teniendo en cuenta el RGPD y el Reglamento de IA de la UE.",
     joinTitle: "Participe en el piloto", joinText: "Los pilotos empiezan en enero de 2027. Deje su correo.", joinCall: "¿Prefiere hablar antes?",
     emailLabel: "Correo electrónico", roleLabel: "Soy", roleChoose: "Elija una opción",
     roleTeacher: "Docente", roleLeader: "Responsable de centro", roleParent: "Madre, padre o tutor", roleOther: "Otro",
     consent: "Acepto que me escriban sobre el piloto y que se guarde mi correo con ese fin. Puedo pedir que lo eliminen en cualquier momento.",
     submit: "Unirme a la lista", saving: "Guardando…",
     privTitle: "Sus datos.",
-    priv: "Guardamos su correo, perfil, idioma y la fecha de su consentimiento, solo para escribirle sobre el piloto. Nunca lo vendemos ni lo compartimos. Para eliminarlo, responda a cualquiera de nuestros correos. Si reserva una llamada de demostración, Microsoft Bookings recibe el nombre y el correo que indique para enviarle la invitación. ",
-    privWho: "([NOMBRE DEL EQUIPO]).",
-    foot: "Un proyecto en fase inicial. El producto todavía no está disponible.",
+    priv: "Guardamos su correo, perfil, idioma y la fecha de su consentimiento, solo para escribirle sobre el piloto. Nunca lo vendemos ni lo compartimos. Para eliminarlo, responda a cualquiera de nuestros correos. Si reserva una llamada de demostración, Microsoft Bookings recibe el nombre y el correo que indique para enviarle la invitación.",
     ok: "Gracias. Ya está en la lista.", dup: "Este correo ya está en la lista.",
     badEmail: "Introduzca un correo válido.", noRole: "Elija su perfil.", noConsent: "Marque la casilla para continuar.",
     fail: "No se pudo guardar su correo. Inténtelo de nuevo en unos minutos.", notConfigured: "El formulario aún no está conectado. Añada la URL y la clave de Supabase en la configuración de la página.",
